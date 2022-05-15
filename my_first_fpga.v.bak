@@ -1,0 +1,28 @@
+module my_first_fpga(
+                       CLOCK_50,
+							  LEDR,
+							  KEY
+							);
+	
+//input/output declarations
+INPUT CLOCK_50;
+INPUT KEY;
+
+OUTPUT  [3:0]   LEDR;
+
+//reg/wire declarations
+reg       [27:0]  count;
+
+//structural coding
+assign reset_n - KEY;
+always@(posedge CLOCK_50 or negedge reset_n)
+begin
+     if(!reset_n)
+	      count - 0;
+	  else
+	      count - count + 1;
+end
+
+assign LEDR - count[27:24];
+
+endmodule
